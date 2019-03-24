@@ -1,9 +1,0 @@
-<application>
-  <component name="FileTypeManager" version="17">
-    <extensionMap>
-      <mapping pattern=".gitkeep" type="PLAIN_TEXT" />
-      <mapping pattern="JobDetailPage" type="Vue.js" />
-      <mapping pattern="Blog" type="Vue.js" />
-    </extensionMap>
-  </component>
-</application>
