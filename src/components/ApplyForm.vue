@@ -2,7 +2,7 @@
     <div>
       <div v-for="job in jobs" :key="job.id">
         <div v-if="jobId == job.id">
-          <section class="page-title">
+          <section fluid class="page-title">
             <b-container>
               <h1>{{job.jobTitle}}</h1>
               <h2>{{job.location}}, {{job.city}}</h2>
@@ -12,22 +12,22 @@
           <section class="apply-form">
             <b-container>
               <h1>Apply for the position of {{job.jobTitle}}</h1>
-              <b-form v-if="!submitted">
+              <b-form v-if="!submitted" class="form">
               <label>*Personal information</label>
               <b-row>
-                <b-col>
+                <b-col cols sm="12" lg="6">
                   <b-form-group
                     id="fname"
                     description="">
                     <b-form-input
                       id="fname-input"
                       type="text"
-                      v-model="fname"
                       :state="fnameState"
+                      v-model="fname"
                       aria-describedby="inputLiveHelp inputLiveFeedback"
                       placeholder="First name" />
-                    <b-form-invalid-feedback :state="fname">
-                      Please fill in at least 2 characters
+                    <b-form-invalid-feedback :state="fnameState">
+                      Please fill in at least 2 characters (letters only)
                     </b-form-invalid-feedback>
                   </b-form-group>
 
@@ -42,8 +42,8 @@
                       :state="lnameState"
                       aria-describedby="inputLiveHelp inputLiveFeedback"
                     placeholder="Last name" />
-                    <b-form-invalid-feedback :state="lname">
-                      Please fill in at least 2 characters
+                    <b-form-invalid-feedback :state="lnameState">
+                      Please fill in at least 2 characters (letters only)
                     </b-form-invalid-feedback>
                   </b-form-group>
                     <b-form-group
@@ -52,7 +52,7 @@
                     >
                       <b-form-input
                         id="dateofbirth-input"
-                        type="text"
+                        type="date"
                         v-model="dateOfBirth"
                         :state="dateofBirthState"
                         placeholder="Date of birth" />
@@ -70,7 +70,7 @@
                       v-model="address"
                       :state="addressState"
                       placeholder="Address" />
-                    <b-form-invalid-feedback :state="address">
+                    <b-form-invalid-feedback :state="addressState">
                       Please fill in your address
                     </b-form-invalid-feedback>
                   </b-form-group>
@@ -85,7 +85,7 @@
                       v-model="houseNumber"
                       :state="houseNumberState"
                       placeholder="House number" />
-                    <b-form-invalid-feedback :state="houseNumber">
+                    <b-form-invalid-feedback :state="houseNumberState">
                       Please fill in your house number
                     </b-form-invalid-feedback>
                   </b-form-group>
@@ -99,23 +99,13 @@
                       v-model="zipcode"
                       :state="zipcodeState"
                       placeholder="Zipcode" />
-                    <b-form-invalid-feedback :state="zipcode">
+                    <b-form-invalid-feedback :state="zipcodeState">
                       Please fill in your zipcode
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
 
-                <b-col>
-                  <b-form-group
-                    id="phone"
-                    description="">
-                    <b-form-input
-                      id="phone-input"
-                      type="tel"
-                      v-model="phone"
-                      placeholder="Phone" />
-                  </b-form-group>
-
+                <b-col cols sm="12" lg="6">
                   <b-form-group
                     id="email"
                     description="">
@@ -125,7 +115,7 @@
                     v-model="email"
                     :state="emailState"
                     placeholder="Enter email" />
-                  <b-form-invalid-feedback :state="email">
+                  <b-form-invalid-feedback :state="emailState">
                     Please fill in a valid email address
                   </b-form-invalid-feedback>
                   </b-form-group>
@@ -146,26 +136,33 @@
                     </b-form-invalid-feedback>
                   </b-form-group>
 
-                  <label>*Upload your resume</label>
+                  <label>*Upload your resume (.pdf, .doc(x), .jpg) max 4MB</label>
                   <b-form-group
                     id="resume"
                     description="">
                   <b-form-file
                     v-model="resumeFile"
-                    :state="resumeState(resumeFile)"
-                    accept=".jpg, .pdf, .docx, .doc"
+                    accept=".pdf"
+                    :state="fileState"
                     placeholder="Choose a file..."
                     drop-placeholder="Drop file here..."
                   />
-                  <div class="mt-3">{{ resumeFile ? resumeFile.name : '' }}</div>
-                    <b-form-invalid-feedback :state="resumeState(resumeFile)">
+                  <div class="mt-3">
+                    <b-button class="btn-sm" @click="resumeFile = null" v-if="resumeFile !== null">X</b-button>
+                    {{ resumeFile ? resumeFile.name : '' }}
+                  </div>
+                    <b-form-invalid-feedback>
                       Please upload your resume
                     </b-form-invalid-feedback>
                   </b-form-group>
-                  <b-button block variant="primary" v-on:click.stop.prevent="submit">Apply</b-button>
-
                 </b-col>
               </b-row>
+                <b-row class="text-center">
+                  <b-col></b-col>
+                  <b-col cols="5"><b-button size="lg"  block variant="primary" v-on:click.stop.prevent="submit">Apply</b-button>
+                  </b-col>
+                  <b-col></b-col>
+                </b-row>
 
               </b-form>
                 <div v-else class="alert alert-success" role="alert">
@@ -186,19 +183,19 @@ export default {
   name: 'ApplyForm',
   computed: {
     fnameState () {
-      return this.fname.length > 2
+      return this.fname.length > 2 && this.stringRegex.test(this.fname)
     },
     lnameState () {
-      return this.lname.length > 2
+      return this.lname.length > 2 && this.stringRegex.test(this.lname)
     },
     emailState () {
-      return this.email !== ''
+      return this.emailRegex.test(this.email)
     },
     addressState () {
       return this.address !== ''
     },
     zipcodeState () {
-      return this.zipcode !== ''
+      return this.zipcodeRegex.test(this.zipcode)
     },
     houseNumberState () {
       return this.houseNumber !== ''
@@ -208,14 +205,18 @@ export default {
     },
     dateofBirthState () {
       return this.dateOfBirth !== ''
+    },
+    fileState () {
+      if (this.resumeFile !== null) {
+        var extension = this.fileRegex.exec(this.resumeFile)[1]
+      }
+      return extension === 'doc' ||
+        extension === 'docx' || extension === 'pdf' || extension === 'jpg'
     }
   },
   methods: {
     goBack: function () {
       this.$router.go(-1)
-    },
-    resumeState: function (file) {
-      return file !== null
     },
     submit: function () {
       this.validate()
@@ -225,7 +226,9 @@ export default {
       }
     },
     validate: function () {
-      if (this.fnameState) {
+      if (this.fnameState && this.lnameState && this.emailState && this.addressState &&
+        this.zipcodeState && this.motivationState && this.houseNumberState && this.dateOfBirth &&
+        this.fileState) {
         this.valid = true
       }
     }
@@ -235,6 +238,10 @@ export default {
       jobId: this.$route.params.jobId,
       title: 'jobDetail',
       // begin form inputs
+      emailRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      zipcodeRegex: /^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z.\s_-]{2}$/,
+      fileRegex: /(?:\.([^.]+))?$/,
+      stringRegex: /^[a-zA-Z ]*$/,
       fname: '',
       lname: '',
       dateOfBirth: '',
@@ -246,7 +253,6 @@ export default {
       address: '',
       email: '',
       zipcode: '',
-      phone: '',
       houseNumber: '',
       resumeFile: null,
       motivation: '',
@@ -343,7 +349,7 @@ export default {
 <style scoped>
 .apply-form{
   background:#f7f7f7;
-  padding: 100px;
+  padding: 50px 0;
 }
 .apply-form .form-control,
 .apply-form .form-control-file,
@@ -354,5 +360,8 @@ export default {
 }
   label{
     font-weight: 700;
+  }
+  .form{
+    padding: 50px 0;
   }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <section class="page-title">
+    <b-container fluid class="page-title">
       <b-container>
         <h1>Jobs</h1>
         <h2>check them out</h2>
       </b-container>
-    </section>
+    </b-container>
 
     <b-container class="job-list-container">
       <h5>Open positions</h5>

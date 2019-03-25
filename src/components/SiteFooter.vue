@@ -1,23 +1,24 @@
 <template>
   <footer class="footer">
+    <b-button class="toTop" @click="scrollToTop">Back to top</b-button>
     <b-container>
       <hr>
       <b-row>
-        <b-col>
+        <b-col cols sm="12" md="3" lg="3">
           <h4>JOBS AT</h4>
             <router-link class="nav-link" to="/">Home</router-link>
             <router-link class="nav-link" to="/jobs">Jobs</router-link>
             <router-link class="nav-link" to="/">Departments</router-link>
             <router-link class="nav-link" to="/">Contact</router-link>
         </b-col>
-        <b-col>
+        <b-col cols sm="12" md="3" lg="3">
           <h4>INFORMATION</h4>
           <router-link class="nav-link" to="/">Home</router-link>
           <router-link class="nav-link" to="/jobs">Jobs</router-link>
           <router-link class="nav-link" to="/">Departments</router-link>
           <router-link class="nav-link" to="/">Contact</router-link>
         </b-col>
-        <b-col>
+        <b-col cols="12" sm="12" md="auto" lg="auto">
           <h4>FOLLOW US</h4>
           <ul class="followUs">
           <li v-for="item in socialMedia" :key="item.id">
@@ -36,7 +37,7 @@
           <!-- Using components -->
           <div v-if="!submitted">
           <b-input-group class="mt-3">
-            <b-form-input   v-model="email"  v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(email) && emailBlured}" v-on:blur="emailBlured = true" />
+            <b-form-input   v-model="email" :state="state"  v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(email) && emailBlured}" v-on:blur="emailBlured = true" />
             <b-input-group-append>
               <b-button v-on:click.stop.prevent="submit"><font-awesome-icon icon="caret-right"></font-awesome-icon>
               </b-button>
@@ -63,18 +64,6 @@ export default {
   computed: {
     state () {
       return this.email.length >= 4
-    },
-    invalidFeedback () {
-      if (this.email.length > 4) {
-        return ''
-      } else if (this.email.length > 0) {
-        return 'Enter at least 4 characters'
-      } else {
-        return 'Please enter something'
-      }
-    },
-    validFeedback () {
-      return this.state === true ? 'Thank you' : ''
     }
   },
   data: function () {
@@ -112,8 +101,8 @@ export default {
       }
     },
     validEmail: function (email) {
-      var re = /(.+)@(.+){2,}\.(.+){2,}/
-      return re.test(email.toLowerCase())
+      var reg = /(.+)@(.+){2,}\.(.+){2,}/
+      return reg.test(email.toLowerCase())
     },
     submit: function () {
       this.validate()
@@ -121,6 +110,9 @@ export default {
         // submit to fake server
         this.submitted = true
       }
+    },
+    scrollToTop () {
+      window.scrollTo(0, 0)
     }
   }
 }
@@ -167,4 +159,12 @@ export default {
   text-align: center;
   margin-right: 5px;
 }
+  .toTop{
+    position: absolute;
+    right: 0;
+    top: -35px;
+    background: #ffffff;
+    color: #000000;
+    border:0;
+  }
 </style>
