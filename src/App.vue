@@ -71,8 +71,8 @@ btn a:hover{
   }
   .page-title{
     text-align: center;
-    min-height: 450px;
-    /*background: url('~@/assets/retail-bg.jpg') no-repeat center center;*/
+    min-height: 500px;
+    background: url('~@/assets/retail-bg.jpg') no-repeat center center;
     background-size: cover;
     color: #ffffff;
     display: flex;

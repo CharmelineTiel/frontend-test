@@ -5,9 +5,9 @@
     <section class="job-meta">
       <b-container>
         <b-row>
-          <b-col>{{ job.location }}, {{ job.city }}</b-col>
-          <b-col v-for="department in departments" :key="department.id" v-if="department.id === job.department">{{ department.name}}</b-col>
-          <b-col>{{ job.postDate}}</b-col>
+          <b-col lg="4" md="auto">{{ job.location }}, {{ job.city }}</b-col>
+          <b-col lg="4" md="auto" v-for="department in departments" :key="department.id" v-if="department.id === job.department">{{ department.name}}</b-col>
+          <b-col lg="4" md="auto">{{ job.postDate}}</b-col>
         </b-row>
       </b-container>
     </section>
@@ -198,7 +198,7 @@ export default {
     border-bottom: 2px solid #dad7d7;
     min-height: 100%;
     height: 100%;
-    padding: 50px;
+    padding: 30px 0;
   }
   .job-meta{
     text-align: center;
@@ -214,7 +214,7 @@ export default {
     background-size: cover;
     display: flex;
     justify-content: center;
-    /*background: url('~/assets/retail-bg.jpg') no-repeat fixed center center;*/
+    background: url('~@/assets/retail-bg.jpg') no-repeat center center;
     padding-bottom: 80px;
   }
   .inner-text {
@@ -228,6 +228,6 @@ export default {
   padding: 50px 0;
 }
   .other-jobs{
-    padding: 40px 0;
+    padding: 20px;
   }
 </style>
