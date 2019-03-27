@@ -2,10 +2,10 @@
 
 > Documentation
 
-A VueJS application using the following npm libraries:
+A VueJS 2.6.10 application using the following npm libraries:
 
-- BootstrapVue (css framework) https://bootstrap-vue.js.org/docs
-- Vee Validation (form validation) https://baianat.github.io/vee-validate/
+- BootstrapVue 4.3.1 (css framework) https://bootstrap-vue.js.org/docs
+- Vee Validation 2.2.0 (form validation) https://github.com/baianat/vee-validate
 - Fontawesome (icons) https://fontawesome.com/
 
 ## Build Setup
