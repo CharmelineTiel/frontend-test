@@ -1,6 +1,12 @@
-# endouble-frontend
+# Frontend test
 
-> Enoduble frontend test
+> Documentation
+
+A VueJS application using the following npm libraries:
+
+- BootstrapVue (css framework) https://bootstrap-vue.js.org/docs
+- Vee Validation (form validation) https://baianat.github.io/vee-validate/
+- Fontawesome (icons) https://fontawesome.com/
 
 ## Build Setup
 
@@ -17,5 +23,7 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
+
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
