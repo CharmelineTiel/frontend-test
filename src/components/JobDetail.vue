@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div v-for="job in jobs" :key="job.id">
-      <div v-if="jobId == job.id">
-    <section class="job-meta">
+    <div v-for="job in jobs" :key="job.id" v-if="jobId == job.id">
+        <section class="job-meta">
       <b-container>
         <b-row>
           <b-col lg="4" md="auto">{{ job.location }}, {{ job.city }}</b-col>
@@ -44,27 +43,29 @@
           <socialwidget />
       </b-container>
     </section>
+        <b-container class="job-list-container">
+          <h5>Open positions</h5>
+          <b-list-group v-for="job in jobs" :key="job.id" v-if="jobId == job.id">
+          </b-list-group>
+          <div v-else>
+            <b-list-group-item>
+              <a @click="goToDetail(job.id)">
+                <h4>{{job.jobTitle}}</h4>
+                <p>{{job.location}}, {{ job.city }}</p>
+              </a>
+            </b-list-group-item>
+          </div>
 
-        <b-container class="other-jobs">
-          <h5>Other Jobs in {{departments[0].name}}</h5>
-        <b-list-group v-for="job in jobs" :key="job.id" v-if="job.id != jobId">
-          <b-list-group-item>
-            <router-link :to="/jobs/+job.department+'/'+job.id" v-bind="job">
-              <h4 @click="goToDetail(job.id)" >{{job.jobTitle}}</h4>
-              <p>{{job.location}}, {{ job.city }}</p>
-            </router-link>
-          </b-list-group-item>
-        </b-list-group>
           <h4>Nothing found?</h4>
           <p>Sign up for a Career Alert</p>
-        </b-container>
 
+        </b-container>
     <section class="department-desc" v-for="department in departments" :key="department.id" v-if="department.id === job.department">
        <b-container>
          <div class="inner-text">
         <h2>About our {{ department.name }} department</h2>
         <p>{{ department.desc }} </p>
-        <a href="#">Continue reading</a>
+        <a href="#">Continue reading &rarr;</a>
          </div>
          <b-embed
            type="iframe"
@@ -77,7 +78,6 @@
     </section>
       </div>
   </div>
-  </div>
 </template>
 
 <script>
@@ -88,20 +88,16 @@ export default {
   components: {
     socialwidget
   },
-  watch: {
-    '$route' (to, from) {
-      // alert(to.params.jobId)
-    }
-  },
-  created () {
-    // alert(this.$route.params.jobId)
-  },
   methods: {
     goBack () {
       this.$router.go(-1)
     },
     apply (id) {
       this.$router.push({name: 'ApplyForm', params: {jobId: id}})
+    },
+    goToDetail (id) {
+      this.$router.push({name: 'JobDetail', params: {jobId: id}})
+      this.$router.go(0)
     }
   },
   data () {
@@ -198,31 +194,22 @@ export default {
     border-bottom: 2px solid #dad7d7;
     min-height: 100%;
     height: 100%;
-    padding: 30px 0;
+    padding: 80px 0;
   }
   .job-meta{
     text-align: center;
-    height: 70px;
+    min-height: 70px;
     display: flex;
     font-weight: 700;
-    margin-top: 100px;
+    margin-top: 140px;
+    padding-bottom: 20px;
   }
   .job-meta ul {list-style-type: square;}
   .job-meta li {float:left;margin-left:25px; list-style-type: none; align-items: center}
 
-  .department-desc{
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    background: url('~@/assets/retail-bg.jpg') no-repeat center center;
-    padding-bottom: 80px;
-  }
-  .inner-text {
-    background: #ffffff;
-    text-align: center;
-    margin: 20px 0;
-    padding: 20px;
-  }
+.job-list-container{
+  padding: 30px 0;
+}
 .apply-btn{
   text-align: center;
   padding: 50px 0;
