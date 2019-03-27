@@ -1,5 +1,4 @@
-# Frontend test
-
+# Frontend test (apply form)
 > Documentation
 
 A VueJS 2.6.10 application using the following npm libraries:
