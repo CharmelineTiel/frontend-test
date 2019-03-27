@@ -9,10 +9,10 @@
 
     <b-container class="job-list-container">
       <h5>Open positions</h5>
-      <b-list-group v-for="job in jobs" :key="job.id">
+      <b-list-group v-for="job in jobs" :key="job.id" v-bind="job">
         <b-list-group-item>
-          <router-link :to="/jobs/+job.department+'/'+job.id" v-bind="job">
-            <h4 @click="goToDetail(job.id)" >{{job.jobTitle}}</h4>
+          <router-link :to="/jobs/+job.id">
+            <h4>{{job.jobTitle}}</h4>
             <p>{{job.location}}, {{ job.city }}</p>
           </router-link>
         </b-list-group-item>
@@ -20,14 +20,22 @@
 
         <h4>Nothing found?</h4>
         <p>Sign up for a Career Alert</p>
-
     </b-container>
+    <section class="department-desc">
+      <b-container>
+        <div class="inner-text">
+          <h1>Some cool text</h1>
+        </div>
+      </b-container>
+
+    </section>
+
   </div>
 </template>
 
 <script>
 
-import jobdetail from '@/views/JobDetail'
+import jobdetail from '@/components/JobDetail'
 export default {
   name: 'JobList',
   components: {
@@ -52,7 +60,7 @@ export default {
           id: 1,
           location: 'The Netherlands',
           city: 'Amsterdam',
-          postDate: '20-03-2019',
+          postDate: '27-03-2019',
           department: 'Retail',
           jobTitle: 'Retail Development Coordinator',
           requirements: [
@@ -86,7 +94,7 @@ export default {
           id: 2,
           location: 'Belgium',
           city: 'Antwerpen',
-          postDate: '20-03-2019',
+          postDate: '27-03-2019',
           department: 'Retail',
           jobTitle: 'Retail Area Manager',
           requirements: [
@@ -111,12 +119,7 @@ export default {
           ]
         }
 
-      ],
-      methods: {
-        goToDetail (id) {
-          this.$router.push({name: 'JobDetail', params: {jobId: id}})
-        }
-      }
+      ]
     }
   }
 }

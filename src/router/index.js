@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home'
-import JobDetail from '@/views/JobDetail'
+import JobDetail from '@/components/JobDetail'
 import JobList from '@/components/JobList'
 import ApplyForm from '@/components/ApplyForm'
 
@@ -9,19 +8,17 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  },
   routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
     {
       path: '/jobs',
       name: 'Jobs',
       component: JobList
     },
     {
-      path: '/jobs/:jobCategory/:jobId',
+      path: '/jobs/:jobId',
       name: 'JobDetail',
       component: JobDetail,
       props: true

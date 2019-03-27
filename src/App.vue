@@ -84,4 +84,34 @@ btn a:hover{
     text-transform: uppercase;
     padding: 40px;
   }
+  #app > footer > div.vue-back-to-top > div{
+    background-color: #ffffff;
+    border-radius: 0;
+  }
+  #app > footer > div.vue-back-to-top > div > span{
+    color: #000000;
+  }
+  #app > footer > div.vue-back-to-top {
+    position: absolute;
+    right: 0!important;
+    top: -32px;
+    color: #000000;
+    border:0;
+  }
+  .department-desc{
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    background: url('~@/assets/retail-bg.jpg') no-repeat center center;
+    padding-bottom: 80px;
+  }
+  .inner-text {
+    background: #ffffff;
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+  }
+  button:focus {
+    outline: 0;
+  }
 </style>

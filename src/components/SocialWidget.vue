@@ -7,7 +7,7 @@
      <font-awesome-icon v-bind:icon="socialLink.icon"></font-awesome-icon>
     </span>
     <span v-else>
-      <font-awesome-icon v-bind:icon="{prefix: socialLink.prefix, iconName: socialLink.icon}"></font-awesome-icon>
+      <font-awesome-icon  v-bind:icon="{prefix: socialLink.prefix, iconName: socialLink.icon}"></font-awesome-icon>
     </span>
   </li>
     </a>
@@ -34,9 +34,6 @@ export default {
 </script>
 
 <style scoped>
-  .social-widget-container{
-    padding: 20px 0;
-  }
   .social-widget{
     margin:0;
     padding: 0;
@@ -58,4 +55,7 @@ export default {
 .social-widget li:hover{
   background: dimgrey;
 }
+  .social-widget-container{
+    padding-bottom: 30px;
+  }
 </style>

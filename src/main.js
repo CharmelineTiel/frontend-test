@@ -7,10 +7,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEnvelope, faPrint, faShoppingBag, faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPrint, faShoppingBag, faCaretRight, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter, faLinkedinIn, faGooglePlusG, faFacebookF, faYoutube, faPinterestP, faInstagram, faTumblr } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import SimpleVueValidation from 'simple-vue-validator'
+import Vuelidate from 'vuelidate'
+import BackToTop from 'vue-backtotop'
+import VeeValidate from 'vee-validate'
 
 library.add(
   faEnvelope,
@@ -24,11 +26,22 @@ library.add(
   faYoutube,
   faPinterestP,
   faShoppingBag,
-  faCaretRight
+  faCaretRight,
+  faTimes
 )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(BootstrapVue)
-Vue.use(SimpleVueValidation)
+Vue.use(Vuelidate)
+Vue.use(BackToTop)
+Vue.use(VeeValidate, {
+  events: 'change|blur',
+  validity: true,
+  classes: true,
+  classNames: {
+    valid: 'is-valid',
+    invalid: 'is-invalid'
+  }
+})
 
 Vue.config.productionTip = false
 

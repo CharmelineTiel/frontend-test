@@ -1,22 +1,22 @@
 <template>
   <footer class="footer">
-    <b-button class="toTop" @click="scrollToTop">Back to top</b-button>
+    <back-to-top text="Back to top"></back-to-top>
     <b-container>
       <hr>
       <b-row>
         <b-col cols sm="12" md="3" lg="3">
           <h4>JOBS AT</h4>
-            <router-link class="nav-link" to="/">Home</router-link>
-            <router-link class="nav-link" to="/jobs">Jobs</router-link>
-            <router-link class="nav-link" to="/">Departments</router-link>
-            <router-link class="nav-link" to="/">Contact</router-link>
+          <router-link class="nav-link" to="/jobs">Home</router-link>
+          <router-link class="nav-link" to="/jobs">Jobs</router-link>
+          <router-link class="nav-link" to="/jobs">Department</router-link>
+          <router-link class="nav-link" to="/jobs">Contact</router-link>
         </b-col>
         <b-col cols sm="12" md="3" lg="3">
           <h4>INFORMATION</h4>
-          <router-link class="nav-link" to="/">Home</router-link>
-          <router-link class="nav-link" to="/jobs">Jobs</router-link>
-          <router-link class="nav-link" to="/">Departments</router-link>
-          <router-link class="nav-link" to="/">Contact</router-link>
+          <router-link class="nav-link" to="/jobs">F.A.Q</router-link>
+          <router-link class="nav-link" to="/jobs">Application Procedure</router-link>
+          <router-link class="nav-link" to="/jobs">Privacy Policy</router-link>
+          <router-link class="nav-link" to="/jobs">Contact</router-link>
         </b-col>
         <b-col cols="12" sm="12" md="auto" lg="auto">
           <h4>FOLLOW US</h4>
@@ -24,35 +24,29 @@
           <li v-for="item in socialMedia" :key="item.id">
             <a v-if="item.prefix === ''">
             <font-awesome-icon v-bind:icon="item.icon"></font-awesome-icon>
+              <span> {{item.name}} </span>
             </a>
             <a v-else>
             <font-awesome-icon v-bind:icon="{prefix: item.prefix, iconName: item.icon}"></font-awesome-icon>
+              <span>{{item.name}}</span>
             </a>
-            {{item.name}}
           </li>
           </ul>
         </b-col>
-        <b-col>
+        <b-col col-sm="12" col-lg="3">
           <h4>G-STAR CAREER ALERT</h4>
-          <!-- Using components -->
-          <div v-if="!submitted">
           <b-input-group class="mt-3">
-            <b-form-input   v-model="email" :state="state"  v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(email) && emailBlured}" v-on:blur="emailBlured = true" />
+            <b-form-input placeholder="Email Address" />
             <b-input-group-append>
-              <b-button v-on:click.stop.prevent="submit"><font-awesome-icon icon="caret-right"></font-awesome-icon>
+              <b-button><font-awesome-icon icon="caret-right"></font-awesome-icon>
               </b-button>
             </b-input-group-append>
           </b-input-group>
-          </div>
-          <div v-else class="alert alert-success" role="alert">
-            <h5>Thank you</h5>
-            <p>You are now subscribed to the G-star alerts!</p>
-          </div>
         </b-col>
       </b-row>
     </b-container>
     <b-container fluid>
-      <div class="copyright" fixed-bottom>Copyright 2019 - Ctiel</div>
+      <div class="copyright">Copyright 2019 - Ctiel</div>
     </b-container>
   </footer>
 
@@ -61,17 +55,8 @@
 <script>
 export default {
   name: 'SiteFooter',
-  computed: {
-    state () {
-      return this.email.length >= 4
-    }
-  },
   data: function () {
     return {
-      email: '',
-      emailBlured: false,
-      valid: false,
-      submitted: false,
       sitemap: [
         {name: 'jobs'},
         {name: 'home'},
@@ -92,28 +77,6 @@ export default {
       jobAlert: ''
 
     }
-  },
-  methods: {
-    validate: function () {
-      this.emailBlured = true
-      if (this.validEmail(this.email)) {
-        this.valid = true
-      }
-    },
-    validEmail: function (email) {
-      var reg = /(.+)@(.+){2,}\.(.+){2,}/
-      return reg.test(email.toLowerCase())
-    },
-    submit: function () {
-      this.validate()
-      if (this.valid) {
-        // submit to fake server
-        this.submitted = true
-      }
-    },
-    scrollToTop () {
-      window.scrollTo(0, 0)
-    }
   }
 }
 </script>
@@ -127,7 +90,7 @@ export default {
   background: #ffffff;
 }
   .copyright{
-    margin-top: 0;
+    margin-top: 20px;
     padding: 20px;
     text-align: left;
     background:#f7f7f7;
@@ -149,22 +112,25 @@ export default {
   }
 .followUs li a {
   list-style-type: none;
-  border: 2px solid darkgrey;
-  width: 30px;
-  height: 30px;
-  float:left;
-  clear:both;
-  border-radius: 50%;
   color: grey;
   text-align: center;
-  margin-right: 5px;
 }
-  .toTop{
-    position: absolute;
-    right: 0;
-    top: -35px;
-    background: #ffffff;
-    color: #000000;
-    border:0;
-  }
+.vue-back-to-top{
+  position: absolute;
+  right: 0;
+  top: -32px;
+  color: #000000;
+  border:0;
+}
+.followUs li a > svg{
+  border: 1px solid grey;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+.followUs span{
+  cursor: pointer;
+}
 </style>
